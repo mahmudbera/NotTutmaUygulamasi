@@ -1,7 +1,7 @@
 // Kullanıcı giriş işlevselliği
 function findUserByUsernameAndPassword(username, password) {
   const allUsers = getUsers();
-  
+
   const enteredUsername = username.trim();
   const enteredPassword = password.trim();
 
@@ -35,14 +35,16 @@ function registerHandler(object) {
     return false;
   }
   // Kullanıcı bilgilerini localStorage'a kaydet (her kullanıcı için ayrı anahtarlar)
-  const userObject = {
+  const newUser = {
     id: new Date().getTime(), // Her kullanıcı için özel id değeri oluşturma senaryosu
     username: object?.username,
     password: object?.password, // !!!!
   };
   const allUsers = getUsers();
-  allUsers.push(userObject);
+  allUsers.push(newUser);
   setUsers(allUsers);
+
+  setSessionUser(newUser);
   return true;
 }
 
