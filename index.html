@@ -1,7 +1,55 @@
-<html>
-<center>
-<h1>
-deneme sitesi
-</h1>
-</center>
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Not Defteri</title>
+  </head>
+  <body>
+    <div id="app">
+      <div id="userPanel">
+        <div id="loginPanel">
+          <h2>Giriş Yap</h2>
+          <input type="text" id="loginUsername" placeholder="Kullanıcı Adı" required />
+          <input type="password" id="loginPassword" placeholder="Şifre" />
+          <button id="loginBtn">Giriş Yap</button>
+          <button id="logoutBtn" style="display: none">Çıkış Yap</button>
+        </div>
+        <div id="registerPanel">
+          <h2>Kayıt Ol</h2>
+          <input
+            type="text"
+            id="registerUsername"
+            placeholder="Kullanıcı Adı"
+          />
+          <input type="password" id="registerPassword" placeholder="Şifre" />
+          <button id="registerBtn">Kayıt Ol</button>
+        </div>
+      </div>
+
+      <div id="notePanel" style="display: none">
+        <h1>Not Defteri</h1>
+        <button id="addNoteBtn">Yeni Not Ekle</button>
+        <div id="noteList"></div>
+        <button id="logoutBtnNotePanel">Çıkış Yap</button>
+      </div>
+    </div>
+
+    <div id="noteModal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="closeNoteModalBtn">&times;</span>
+        <h2>Not Ekle</h2>
+        <input type="text" id="noteTitle" placeholder="Başlık" />
+        <textarea id="noteContent" placeholder="Not içeriği"></textarea>
+        <button id="saveNoteBtn">Kaydet</button>
+      </div>
+    </div>
+    <script src="helpers.js"></script>
+    <script src="auth.js"></script>
+    <script src="script.js"></script>
+    <script src="storage.js"></script>
+    <script src="ui.js"></script>
+  </body>
 </html>
