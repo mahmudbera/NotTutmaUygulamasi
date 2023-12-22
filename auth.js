@@ -1,7 +1,7 @@
 // Kullanıcı giriş işlevselliği
 function findUserByUsernameAndPassword(username, password) {
   const allUsers = getUsers();
-
+  
   const enteredUsername = username.trim();
   const enteredPassword = password.trim();
 
