@@ -6,46 +6,183 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
     <title>Not Defteri</title>
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body>
-    <div id="app">
-      <div id="userPanel">
-        <div id="loginPanel">
-          <h2>Giriş Yap</h2>
-          <input type="text" id="loginUsername" placeholder="Kullanıcı Adı" required />
-          <input type="password" id="loginPassword" placeholder="Şifre" />
-          <button id="loginBtn">Giriş Yap</button>
-          <button id="logoutBtn" style="display: none">Çıkış Yap</button>
+    <div id="app" class="w-full h-full">
+      <div
+        id="userPanel"
+        class="bg-blue-500 w-full h-full flex flex-col items-center justify-center"
+      >
+        <div
+          id="loginPanel"
+          class="bg-white max-w-[450px] w-full flex flex-col items-center justify-start rounded-2xl pt-14 pb-10 px-10 shadow-md max-md:w-[86%] max-md:px-8 max-md:py-10"
+        >
+          <h2 class="text-black font-medium text-4xl mb-8">Üye Girişi</h2>
+          <div class="w-full flex flex-col gap-3 mb-10">
+            <input
+              type="text"
+              id="loginUsername"
+              placeholder="Kullanıcı Adı"
+              class="w-full h-12 rounded-md bg-zinc-200 text-zinc-700 placeholder:text-zinc-500 px-4 focus:outline-none"
+              required
+            />
+            <input
+              type="password"
+              id="loginPassword"
+              placeholder="Şifre"
+              class="w-full h-12 rounded-md bg-zinc-200 text-zinc-700 placeholder:text-zinc-500 px-4 focus:outline-none"
+            />
+          </div>
+          <button
+            id="loginBtn"
+            class="w-full h-12 rounded-md bg-blue-700 text-white"
+          >
+            Giriş Yap
+          </button>
+          <button onclick="openRegisterPanel()" class="mt-6 text-zinc-500">
+            Henüz bir hesabın yok mu?
+            <span class="text-zinc-800 font-medium">Kayıt Ol</span>
+          </button>
         </div>
-        <div id="registerPanel">
-          <h2>Kayıt Ol</h2>
+        <div
+          id="registerPanel"
+          class="bg-white max-w-[450px] hidden w-full flex-col items-center justify-start rounded-2xl pt-14 pb-10 px-10 shadow-md max-md:w-[86%] max-md:px-8 max-md:py-10"
+        >
+          <h2 class="text-black font-medium text-4xl mb-8">Üyeliğini Başlat</h2>
+          <div class="w-full flex flex-col gap-3 mb-10">
+            <input
+              type="text"
+              id="registerFullName"
+              placeholder="Ad Soyad"
+              class="w-full h-12 rounded-md bg-zinc-200 text-zinc-700 placeholder:text-zinc-500 px-4 focus:outline-none"
+              required
+            />
+            <input
+              type="email"
+              id="registerEmail"
+              placeholder="Email"
+              class="w-full h-12 rounded-md bg-zinc-200 text-zinc-700 placeholder:text-zinc-500 px-4 focus:outline-none"
+              required
+            />
+            <input
+              type="text"
+              id="registerUsername"
+              placeholder="Kullanıcı Adı"
+              class="w-full h-12 rounded-md bg-zinc-200 text-zinc-700 placeholder:text-zinc-500 px-4 focus:outline-none"
+              required
+            />
+            <input
+              type="password"
+              id="registerPassword"
+              placeholder="Şifre"
+              class="w-full h-12 rounded-md bg-zinc-200 text-zinc-700 placeholder:text-zinc-500 px-4 focus:outline-none"
+            />
+          </div>
+          <button
+            id="registerBtn"
+            class="w-full h-12 rounded-md bg-blue-700 text-white"
+          >
+            Kayıt Ol
+          </button>
+          <button onclick="openLoginPanel()" class="mt-6 text-zinc-500">
+            Zaten kayıtlı mısın?
+            <span class="text-zinc-800 font-medium">Giriş Yap</span>
+          </button>
+        </div>
+      </div>
+
+      <div
+        id="notePanel"
+        style="display: none"
+        class="bg-white h-full w-full flex flex-col items-center justify-start pt-16 gap-4 max-md:pt-0"
+      >
+        <div
+          class="bg-zinc-200 max-w-7xl w-full flex flex-row items-center justify-between gap-4 rounded-2xl p-6 max-lg:flex-col-reverse max-md:rounded-none"
+        >
+          <button
+            id="addNoteBtn"
+            class="px-7 h-12 rounded-md bg-blue-700 text-white max-md:w-full"
+          >
+            Yeni Not Ekle
+          </button>
+          <div
+            class="flex flex-row items-center justify-center gap-5 max-md:w-full max-md:justify-between"
+          >
+            <div class="flex flex-row items-center justify-start">
+              <img
+                id="userImage"
+                src="https://api.dicebear.com/7.x/initials/svg?seed="
+                alt=""
+                class="w-12 h-12 rounded-full bg-zinc-700 mr-3"
+              />
+              <div class="flex flex-col items-start justify-center gap-1">
+                <h2
+                  id="userFullName"
+                  class="text-zinc-700 font-bold text-lg leading-none w-50 truncate"
+                ></h2>
+                <h3
+                  id="userUsername"
+                  class="text-zinc-500 font-normal text-base leading-none w-50 truncate"
+                ></h3>
+              </div>
+            </div>
+            <button
+              id="logoutBtnNotePanel"
+              class="px-7 h-12 rounded-md bg-red-700 text-white"
+            >
+              Çıkış Yap
+            </button>
+          </div>
+        </div>
+        <div
+          class="bg-zinc-200 h-[80%] max-w-7xl w-full rounded-2xl p-6 max-md:rounded-none max-md:h-auto"
+        >
+          <div
+            id="noteList"
+            class="max-w-7xl w-full grid grid-cols-5 gap-4 max-xl:grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-1"
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="noteModal"
+      class="modal hidden fixed top-0 left-0 w-full h-full bg-black/70 transition-all"
+    >
+      <div
+        class="modal-content bg-white p-5 max-w-[400px] w-full m-auto rounded-lg relative"
+      >
+        <span
+          id="closeNoteModalBtn"
+          class="close absolute right-5 top-5 bg-zinc-200 w-6 h-6 flex items-center justify-center rounded-full hover:bg-zinc-400 cursor-pointer"
+          >&times;</span
+        >
+        <h2 class="text-black font-bold text-2xl mb-4">Not Ekle</h2>
+        <div
+          class="w-full flex flex-col items-center justify-center gap-3 mb-4"
+        >
           <input
             type="text"
-            id="registerUsername"
-            placeholder="Kullanıcı Adı"
+            id="noteTitle"
+            placeholder="Başlık"
+            class="w-full h-12 rounded-md bg-zinc-200 text-zinc-700 placeholder:text-zinc-500 px-4 focus:outline-none"
           />
-          <input type="password" id="registerPassword" placeholder="Şifre" />
-          <button id="registerBtn">Kayıt Ol</button>
+          <textarea
+            id="noteContent"
+            placeholder="Not içeriği"
+            class="w-full h-32 rounded-md bg-zinc-200 text-zinc-700 placeholder:text-zinc-500 p-4 focus:outline-none"
+          ></textarea>
         </div>
-      </div>
-
-      <div id="notePanel" style="display: none">
-        <h1>Not Defteri</h1>
-        <button id="addNoteBtn">Yeni Not Ekle</button>
-        <div id="noteList"></div>
-        <button id="logoutBtnNotePanel">Çıkış Yap</button>
-      </div>
-    </div>
-
-    <div id="noteModal" class="modal">
-      <div class="modal-content">
-        <span class="close" id="closeNoteModalBtn">&times;</span>
-        <h2>Not Ekle</h2>
-        <input type="text" id="noteTitle" placeholder="Başlık" />
-        <textarea id="noteContent" placeholder="Not içeriği"></textarea>
-        <button id="saveNoteBtn">Kaydet</button>
+        <button
+          id="saveNoteBtn"
+          class="px-7 h-12 rounded-md bg-blue-700 text-white"
+        >
+          Kaydet
+        </button>
       </div>
     </div>
+
     <script src="helpers.js"></script>
     <script src="auth.js"></script>
     <script src="script.js"></script>

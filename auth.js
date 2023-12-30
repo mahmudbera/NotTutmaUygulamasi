@@ -39,6 +39,8 @@ function registerHandler(object) {
     id: new Date().getTime(), // Her kullanıcı için özel id değeri oluşturma senaryosu
     username: object?.username,
     password: object?.password, // !!!!
+    fullName: object?.fullName,
+    email: object?.email,
   };
   const allUsers = getUsers();
   allUsers.push(newUser);
@@ -62,4 +64,5 @@ function isUserAlreadyExists(username) {
 function logoutHandler() {
   removeSessionUser();
   showUserPanel();
+  openLoginPanel();
 }

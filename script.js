@@ -7,6 +7,8 @@ const loginUsernameInput = document.getElementById("loginUsername");
 const loginPasswordInput = document.getElementById("loginPassword");
 const registerUsernameInput = document.getElementById("registerUsername");
 const registerPasswordInput = document.getElementById("registerPassword");
+const registerFullNameInput = document.getElementById("registerFullName");
+const registerEmailInput = document.getElementById("registerEmail");
 const loginBtn = document.getElementById("loginBtn");
 const registerBtn = document.getElementById("registerBtn");
 const addNoteBtn = document.getElementById("addNoteBtn");
@@ -37,18 +39,20 @@ document.addEventListener("DOMContentLoaded", function () {
 registerBtn.addEventListener("click", function () {
   const username = registerUsernameInput.value;
   const password = registerPasswordInput.value;
+  const fullName = registerFullNameInput.value;
+  const email = registerEmailInput.value;
 
   if (!isInputsValid({ username, password })) {
     alert("Kullanıcı adı ve şifre boş bırakılamaz.");
     return;
   }
 
-  const status = registerHandler({ username, password });
+  const status = registerHandler({ username, password, fullName, email });
   if (!status) {
     alert("Kullanıcı adı zaten alınmış.");
     return;
   }
-  clearInputs({ registerUsernameInput, registerPasswordInput });
+  clearInputs({ registerUsernameInput, registerPasswordInput, registerFullNameInput, registerEmailInput });
   showNotePanel();
 });
 
@@ -109,5 +113,4 @@ closeNoteModalBtn.addEventListener("click", function () {
 });
 
 // Çıkış butonlarına tıklandığında çıkış işlevselliğini çağır
-logoutBtn.addEventListener("click", logoutHandler);
 logoutBtnNotePanel.addEventListener("click", logoutHandler);
