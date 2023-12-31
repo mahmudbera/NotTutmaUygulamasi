@@ -100,12 +100,22 @@
         <div
           class="bg-zinc-200 max-w-7xl w-full flex flex-row items-center justify-between gap-4 rounded-2xl p-6 max-lg:flex-col-reverse max-md:rounded-none"
         >
-          <button
-            id="addNoteBtn"
-            class="px-7 h-12 rounded-md bg-blue-700 text-white max-md:w-full"
+          <div
+            class="flex flex-row items-center justify-start gap-3 max-md:w-full"
           >
-            Yeni Not Ekle
-          </button>
+            <button
+              id="addNoteBtn"
+              class="px-7 h-12 rounded-md bg-blue-700 text-white max-md:w-full"
+            >
+              Not Ekle
+            </button>
+            <button
+              id="addCategoryBtn"
+              class="px-7 h-12 rounded-md bg-orange-700 text-white max-md:w-full"
+            >
+              Kategori Ekle
+            </button>
+          </div>
           <div
             class="flex flex-row items-center justify-center gap-5 max-md:w-full max-md:justify-between"
           >
@@ -153,11 +163,12 @@
       <div
         class="modal-content bg-white p-5 max-w-[400px] w-full m-auto rounded-lg relative"
       >
-        <span
-          id="closeNoteModalBtn"
+        <button
+          onclick="closeNoteModal()"
           class="close absolute right-5 top-5 bg-zinc-200 w-6 h-6 flex items-center justify-center rounded-full hover:bg-zinc-400 cursor-pointer"
-          >&times;</span
         >
+          &times;
+        </button>
         <h2 class="text-black font-bold text-2xl mb-4">Not Ekle</h2>
         <div
           class="w-full flex flex-col items-center justify-center gap-3 mb-4"
@@ -168,6 +179,12 @@
             placeholder="Başlık"
             class="w-full h-12 rounded-md bg-zinc-200 text-zinc-700 placeholder:text-zinc-500 px-4 focus:outline-none"
           />
+          <select
+            id="noteCategory"
+            class="w-full h-12 rounded-md bg-zinc-200 text-zinc-700 placeholder:text-zinc-500 px-4 focus:outline-none"
+          >
+            <option value="" selected disabled hidden>Kategori seç</option>
+          </select>
           <textarea
             id="noteContent"
             placeholder="Not içeriği"
@@ -176,6 +193,45 @@
         </div>
         <button
           id="saveNoteBtn"
+          class="px-7 h-12 rounded-md bg-blue-700 text-white"
+        >
+          Kaydet
+        </button>
+      </div>
+    </div>
+
+    <div
+      id="categoryModal"
+      class="modal hidden fixed top-0 left-0 w-full h-full bg-black/70 transition-all"
+    >
+      <div
+        class="modal-content bg-white p-5 max-w-[400px] w-full m-auto rounded-lg relative"
+      >
+        <button
+          id="closeCategoryModalBtn"
+          onclick="closeCategoryModal()"
+          class="close absolute right-5 top-5 bg-zinc-200 w-6 h-6 flex items-center justify-center rounded-full hover:bg-zinc-400 cursor-pointer"
+        >
+          &times;
+        </button>
+        <h2 class="text-black font-bold text-2xl mb-4">Kategori Ekle</h2>
+        <div
+          class="w-full flex flex-col items-center justify-center gap-3 mb-4"
+        >
+          <input
+            type="text"
+            id="categoryText"
+            placeholder="Kategori"
+            class="w-full h-12 rounded-md bg-zinc-200 text-zinc-700 placeholder:text-zinc-500 px-4 focus:outline-none"
+          />
+        </div>
+        <div
+          class="w-full grid grid-cols-6 gap-2 mb-4"
+          id="colorsContent"
+        ></div>
+
+        <button
+          id="saveCateBtn"
           class="px-7 h-12 rounded-md bg-blue-700 text-white"
         >
           Kaydet

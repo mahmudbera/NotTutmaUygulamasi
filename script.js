@@ -12,11 +12,15 @@ const registerEmailInput = document.getElementById("registerEmail");
 const loginBtn = document.getElementById("loginBtn");
 const registerBtn = document.getElementById("registerBtn");
 const addNoteBtn = document.getElementById("addNoteBtn");
+const addCategoryBtn = document.getElementById("addCategoryBtn");
 const noteList = document.getElementById("noteList");
 const noteModal = document.getElementById("noteModal");
+const categoryModal = document.getElementById("categoryModal");
 const noteTitleInput = document.getElementById("noteTitle");
 const noteContentTextarea = document.getElementById("noteContent");
+const categoryText = document.getElementById("categoryText");
 const saveNoteBtn = document.getElementById("saveNoteBtn");
+const saveCateBtn = document.getElementById("saveCateBtn");
 const closeModalBtn = document.querySelector(".close");
 const logoutBtn = document.getElementById("logoutBtn");
 const logoutBtnNotePanel = document.getElementById("logoutBtnNotePanel");
@@ -52,7 +56,12 @@ registerBtn.addEventListener("click", function () {
     alert("Kullanıcı adı zaten alınmış.");
     return;
   }
-  clearInputs({ registerUsernameInput, registerPasswordInput, registerFullNameInput, registerEmailInput });
+  clearInputs({
+    registerUsernameInput,
+    registerPasswordInput,
+    registerFullNameInput,
+    registerEmailInput,
+  });
   showNotePanel();
 });
 
@@ -77,6 +86,13 @@ loginBtn.addEventListener("click", function () {
 saveNoteBtn.addEventListener("click", function () {
   const title = noteTitleInput.value;
   const content = noteContentTextarea.value;
+  const categorySelect = document.getElementById("noteCategory");
+
+  var value = categorySelect.value;
+
+  const category = getCategoryById(value);
+
+  console.log(value, category);
 
   if (!isInputsValid({ title, content })) {
     alert("Başlık ve içerik boş bırakılamaz.");
@@ -88,11 +104,42 @@ saveNoteBtn.addEventListener("click", function () {
     userId: getSessionUser()?.id,
     title,
     content,
+    categoryColor: category?.categoryColor,
+    categoryId: category?.categoryId,
+    categoryName: category?.categoryName,
   });
 
   // Notları ekranda göster ve modalı kapat
   displayNotes();
   closeNoteModal();
+});
+
+saveCateBtn.addEventListener("click", function () {
+  const categoryTextValue = categoryText.value;
+  const categoryColorValue = document.querySelector(
+    'input[name="color"]:checked'
+  )?.value;
+
+  if (
+    !isInputsValid({ categoryTextValue }) ||
+    !!!document.querySelector('input[name="color"]:checked')
+  ) {
+    alert("Kategori ve renk boş bırakılamaz.");
+    return;
+  }
+
+  createNewCategory({
+    categoryId: new Date().getTime(),
+    userId: getSessionUser()?.id,
+    categoryName: categoryTextValue,
+    categoryColor: categoryColorValue,
+  });
+
+  clearInputs({
+    categoryText,
+  });
+  displayNotes();
+  closeCategoryModal();
 });
 
 // Not ekleme işlevselliği
@@ -104,12 +151,12 @@ addNoteBtn.addEventListener("click", function () {
   openNoteModal();
 });
 
-closeNoteModalBtn.addEventListener("click", function () {
+addCategoryBtn.addEventListener("click", function () {
   clearInputs({
     noteTitleInput,
     noteContentTextarea,
   });
-  closeNoteModal();
+  openCategoryModal();
 });
 
 // Çıkış butonlarına tıklandığında çıkış işlevselliğini çağır

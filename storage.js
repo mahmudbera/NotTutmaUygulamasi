@@ -25,6 +25,33 @@ function getNoteBySessionUser() {
   return notes.filter((note) => note.userId === sessionUser?.id);
 }
 
+// Category storage
+function createNewCategory(newCategory) {
+  const allCategories = getCategories();
+  allCategories.push(newCategory);
+  setCategories(allCategories);
+}
+
+function setCategories(category) {
+  localStorage.setItem("categories", JSON.stringify(category));
+}
+
+function getCategories() {
+  return JSON.parse(localStorage.getItem("categories")) || [];
+}
+
+function getCategoryBySessionUser() {
+  const categories = getCategories();
+  return categories.filter(
+    (category) => category.userId === getSessionUser()?.id
+  );
+}
+
+function getCategoryById(id) {
+  const categories = getCategoryBySessionUser();
+  return categories.find((category) => category.categoryId == id);
+}
+
 // User storage
 function setUsers(users) {
   localStorage.setItem("users", JSON.stringify(users));
