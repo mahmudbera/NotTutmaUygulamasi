@@ -4,3 +4,4 @@
 Referanslar:
   -https://tailwindcss.com/
   -https://fonts.google.com/
+  -https://www.dicebear.com/styles/initials/
